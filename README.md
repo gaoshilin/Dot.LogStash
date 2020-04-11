@@ -61,9 +61,12 @@
   
 5. 记录日志到 ElasticSearch
   ```C#
-  var dic = new Dictionary<string, object>();
-  dic.Add("Request", name);
-  dic.Add("Response", response);
-  dic.Add("Timespan", (DateTime.Now - requestTimespan).TotalMilliseconds);
-  _logger.LogInformation(JsonConvert.SerializeObject(dic));
+  var traceLog = new TraceLog();
+  traceLog.Request = name;
+  traceLog.Response = response;
+  traceLog.Timespan = (DateTime.Now - requestTimespan).TotalMilliseconds;
+  _logger.LogInformation(JsonConvert.SerializeObject(traceLog));
   ```
+  
+6. 在 Kibana 中查看日志
+
