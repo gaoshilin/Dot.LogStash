@@ -79,4 +79,4 @@
   ```
   
 6. 在 Kibana 中查看日志
-
+   ![image](https://github.com/gaoshilin/Dot.LogStash/blob/master/Dot.LogStash.Sample/KibanaSample.png)
