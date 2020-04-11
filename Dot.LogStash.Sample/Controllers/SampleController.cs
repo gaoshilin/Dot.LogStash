@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -25,13 +26,29 @@ namespace Dot.LogStash.Sample.Controllers
             var requestTimespan = DateTime.Now;
             var response = $"Hello {name}!";
 
-            var dic = new Dictionary<string, object>();
-            dic.Add("Request", name);
-            dic.Add("Response", response);
-            dic.Add("Timespan", (DateTime.Now - requestTimespan).TotalMilliseconds);
-            _logger.LogInformation(JsonConvert.SerializeObject(dic));
+            /* 自定义日志类，字段需要和 template 的定义一致，如：
+             * "properties": {
+                 "@timestamp": { "type": "date", "format": "yyyy-MM-dd HH:mm:ss" },
+                 "Request": { "type": "text" },
+                 "Response": { "type": "text" },
+                 "Timespan": { "type": "double" }
+               }
+             */
+            var traceLog = new TraceLog();
+            traceLog.Request = name;
+            traceLog.Response = response;
+            traceLog.Timespan = (DateTime.Now - requestTimespan).TotalMilliseconds;
+
+            _logger.LogInformation(JsonConvert.SerializeObject(traceLog));
 
             return response;
         }
+    }
+
+    public class TraceLog
+    {
+        public string Request { get; set; }
+        public string Response { get; set; }
+        public double Timespan { get; set; }
     }
 }

@@ -20,7 +20,7 @@
     "Dot.LogStash.Sample": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "sample",
+      "launchUrl": "sample?name=mike",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
