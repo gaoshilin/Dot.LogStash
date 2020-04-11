@@ -50,6 +50,30 @@
      <appender-ref ref="ElasticSearchAppender"/>
    </logger>
    ```
+
+4. 添加模板文件（如：Configs/template.dot.logstash.sample.json)
+   ```JSON
+   {
+     "template": "dot.logstash.sample*",
+     "settings": {
+       "number_of_shards": 5,
+       "number_of_replicas": 0
+     },
+     "mappings": {
+       "log": {
+         "properties": {
+           "@timestamp": {
+             "type": "date",
+             "format": "yyyy-MM-dd HH:mm:ss"
+           },
+           "Request": { "type": "text" },
+           "Response": { "type": "text" },
+           "Timespan": { "type": "double" }
+         }
+       }
+     }
+   }
+   ```
   
 4. 依赖注入 logger
   ```C#
