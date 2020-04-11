@@ -74,8 +74,18 @@
      }
    }
    ```
+   
+5. 定义日志实体类，需与模板文件中的定义一致
+  ```C#
+  public class TraceLog
+  {
+      public string Request { get; set; }
+      public string Response { get; set; }
+      public double Timespan { get; set; }
+  }
+  ```
   
-4. 依赖注入 logger
+6. 依赖注入 logger
   ```C#
   public SampleController(ILoggerFactory loggerFactory)
   {
@@ -83,17 +93,8 @@
   }
   ```
   
-5. 记录日志到 ElasticSearch
+7. 记录日志到 ElasticSearch
   ```C#
-  /***
-   * 自定义日志类，字段需要和 template 的定义一致，如：
-   * "properties": {
-       "@timestamp": { "type": "date", "format": "yyyy-MM-dd HH:mm:ss" },
-       "Request": { "type": "text" },
-       "Response": { "type": "text" },
-       "Timespan": { "type": "double" }
-     }
-   ***/
   var traceLog = new TraceLog();
   traceLog.Request = name;
   traceLog.Response = response;
@@ -102,5 +103,5 @@
   _logger.LogInformation(JsonConvert.SerializeObject(traceLog));
   ```
   
-6. 在 Kibana 中查看日志
+9. 在 Kibana 中查看日志
    ![image](https://github.com/gaoshilin/Dot.LogStash/blob/master/Dot.LogStash.Sample/KibanaSample.png)
