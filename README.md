@@ -15,42 +15,41 @@
 3. 日志文件配置：
    ```XML
    <appender name="ElasticSearchAppender" type="Dot.LogStash.ElasticSearchAppender, Dot.LogStash">
-    <Servers>
-      <Server>
-        <Address>192.1.1.111</Address>
-        <Port>9200</Port>
-      </Server>
-    </Servers>
-    <LogEventFactoryType>Dot.LogStash.SimpleLogEventFactory, Dot.LogStash</LogEventFactoryType>
-    <IndexName>your index name</IndexName> <!--eg:dot.logstash.sample_%{+yyyy-MM-dd}-->
-    <IndexType>your index type</IndexType> <!--eg:log-->
-    <Bulksize>1</Bulksize>
-    <BulkIdleTimeout>1</BulkIdleTimeout>
-    <IndexAsync>True</IndexAsync>
-    <Template>
-      <Name>your template name</Name> <!--eg:template.dot.logstash.sample-->
-      <FileName>your template file</FileName> <!--eg:Configs/template.dot.logstash.sample.json-->
-    </Template>
-    <ElasticFilters>
-      <Json>
-        <SourceKey>Message</SourceKey>
-        <FlattenJson>true</FlattenJson>
-        <Separator>_</Separator>
-      </Json>
-      <Remove>
-        <Key>Message</Key>
-      </Remove>
-      <Remove>
-        <Key>MessageObject</Key>
-      </Remove>
-    </ElasticFilters>
-  </appender>
-
-  <logger name="ElasticSearchLogger" additivity="false">
-    <level value="ALL"/>
-    <appender-ref ref="ElasticSearchAppender"/>
-  </logger>
-  ```
+     <Servers>
+       <Server>
+         <Address>192.1.1.111</Address>
+         <Port>9200</Port>
+       </Server>
+     </Servers>
+     <LogEventFactoryType>Dot.LogStash.SimpleLogEventFactory, Dot.LogStash</LogEventFactoryType>
+     <IndexName>your index name</IndexName> <!--eg:dot.logstash.sample_%{+yyyy-MM-dd}-->
+     <IndexType>your index type</IndexType> <!--eg:log-->
+     <Bulksize>1</Bulksize>
+     <BulkIdleTimeout>1</BulkIdleTimeout>
+     <IndexAsync>True</IndexAsync>
+     <Template>
+       <Name>your template name</Name> <!--eg:template.dot.logstash.sample-->
+       <FileName>your template file</FileName> <!--eg:Configs/template.dot.logstash.sample.json-->
+     </Template>
+     <ElasticFilters>
+       <Json>
+         <SourceKey>Message</SourceKey>
+         <FlattenJson>true</FlattenJson>
+         <Separator>_</Separator>
+       </Json>
+       <Remove>
+         <Key>Message</Key>
+       </Remove>
+       <Remove>
+         <Key>MessageObject</Key>
+       </Remove>
+     </ElasticFilters>
+   </appender>
+   <logger name="ElasticSearchLogger" additivity="false">
+     <level value="ALL"/>
+     <appender-ref ref="ElasticSearchAppender"/>
+   </logger>
+   ```
   
 4. 依赖注入 logger
   ```C#
